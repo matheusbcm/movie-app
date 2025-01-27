@@ -7,15 +7,17 @@ import {
 import "./App.css";
 import RootLayout from "./rootLayout/RootLayout";
 import Home from "./pages/Home.tsx";
-import Sign from "./pages/Sign.tsx";
+import SignUp from "./pages/SignUp.tsx";
 import Login from "./pages/Login.tsx";
+import IntroApp from "./pages/IntroApp.tsx";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />} />
-        <Route path="sign" element={<Sign />} />
+        <Route index element={<IntroApp />} />
+        <Route path="home" element={<Home />} />
+        <Route path="signUp" element={<SignUp />} />
         <Route path="login" element={<Login />} />
       </Route>
     )
