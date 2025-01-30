@@ -1,4 +1,4 @@
-import MovieList from "../components/MovieList";
+import MovieList from "../components/MoviePosterGrid";
 import Footer from "../components/Footer";
 import ProfileImg from "../components/ProfileImg";
 

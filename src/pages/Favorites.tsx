@@ -1,12 +1,12 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import MovieList from "../components/MovieList";
+import MoviePosterGrid from "../components/MoviePosterGrid";
 
 const Favorites = () => {
   return (
     <>
       <Header />
-      <MovieList />
+      <MoviePosterGrid />
       <Footer />
     </>
   );
