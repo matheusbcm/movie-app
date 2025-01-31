@@ -23,10 +23,10 @@ const IntroApp = () => {
         );
         const data = await response.json();
         setMovies(data.results);
-        console.log(data);
+        console.log(data.results);
       } catch (err) {
         setError("Erro ao carregar os filmes.");
-        console.error(err);
+        // console.error(err);
       } finally {
         setLoading(false);
       } // FIM DO TRY-CATCH ??
