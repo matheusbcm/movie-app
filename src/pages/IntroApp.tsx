@@ -1,17 +1,14 @@
 import { useContext } from "react";
 import Carousel from "../components/Carousel";
+import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
-import { TrendingMoviesContext } from "../context/Context";
-
 
 const IntroApp = () => {
-
-  const { trendingMovies } = useContext(TrendingMoviesContext);
-
+  const { trendingMovies } = useContext(mainContext) as {trendingMovies: ITrendingMovies[]}
   return (
     <>
-      <Carousel />
       <h1>Intro App</h1>
+      <Carousel />
       <div>
         {trendingMovies.map((movie: ITrendingMovies) => (
           <div key={movie.id}>
