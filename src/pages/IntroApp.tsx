@@ -4,7 +4,9 @@ import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
 
 const IntroApp = () => {
+
   const { trendingMovies } = useContext(mainContext) as {trendingMovies: ITrendingMovies[]}
+
   return (
     <>
       <h1>Intro App</h1>
