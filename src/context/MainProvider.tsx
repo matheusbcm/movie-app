@@ -2,7 +2,11 @@ import { createContext, useEffect, useState } from "react";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
 import getTrendingMovies from "../utils/fetches/getTrendingMovies";
 
-export const mainContext = createContext({}) //pode ignorar essa marcacao de erro, pois o typescript ja sabe que o valor do contexto é um objeto
+interface MainContextType {
+    trendingMovies: ITrendingMovies[];
+}
+
+export const mainContext = createContext<MainContextType>({ trendingMovies: [] })
 
 const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_TMDB_URL = `https://api.themoviedb.org/3/`;

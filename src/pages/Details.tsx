@@ -1,16 +1,12 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import MovieDetail from "../components/MovieDetail";
 import PreferenceButtons from "../components/PreferenceButtons.tsx";
-const Detail = () => {
+const Details = () => {
   return (
     <>
-      <Header />
       <MovieDetail />
       <PreferenceButtons />
-      <Footer />
     </>
   );
 };
 
-export default Detail;
+export default Details;
