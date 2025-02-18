@@ -3,29 +3,33 @@ import { ITrendingMovies } from "../interfaces/ITrendingMovies";
 import getTrendingMovies from "../utils/fetches/getTrendingMovies";
 
 interface MainContextType {
-    trendingMovies: ITrendingMovies[];
+  trendingMovies: ITrendingMovies[];
 }
 
-export const mainContext = createContext<MainContextType>({ trendingMovies: [] })
+export const mainContext = createContext<MainContextType>({
+  trendingMovies: [],
+});
 
 const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_TMDB_URL = `https://api.themoviedb.org/3/`;
 
-export default function MainProvider({children}: {children: React.ReactNode}) {
+export default function MainProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [trendingMovies, setTrendingMovies] = useState<ITrendingMovies[]>([]);
 
-    const [trendingMovies, setTrendingMovies] = useState<ITrendingMovies[]>([])
+  useEffect(() => {
+    getTrendingMovies(
+      `${BASE_TMDB_URL}trending/movie/week?api_key=${TMDB_API_KEY}`,
+      setTrendingMovies
+    );
+  }, []);
 
-    useEffect(()=>{
-        getTrendingMovies(
-            `${BASE_TMDB_URL}trending/movie/week?api_key=${TMDB_API_KEY}`,
-            setTrendingMovies
-        );
-    },[])
-
-
-    return (
-        <mainContext.Provider value={{ trendingMovies }}>
-            {children}
-        </mainContext.Provider>
-    )
+  return (
+    <mainContext.Provider value={{ trendingMovies }}>
+      {children}
+    </mainContext.Provider>
+  );
 }
