@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
