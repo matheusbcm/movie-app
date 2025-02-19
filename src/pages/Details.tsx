@@ -11,6 +11,7 @@ const Details = () => {
   const [movie, setMovie] = useState<IMovieById | null>(null);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [showTrailer, setShowTrailer] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     if(movieId) {
@@ -18,21 +19,32 @@ const Details = () => {
       getMovieTrailer(movieId, setTrailerKey);
     } 
   }, [movieId]);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   if (!movie) {
     return <div>Loading...</div>;
   }
 
-  const opts = {
-    height: '390',
-    width: '640',
-    playerVars: {
-      autoplay: 1,
-    },
+  const getYoutubeOpts = () => {
+    const width = windowWidth > 768 ? 640 : windowWidth - 32; // 32px para padding
+    const height = width * 0.5625; // Mantém a proporção 16:9
+    
+    return {
+      height,
+      width,
+      playerVars: {
+        autoplay: 1,
+      },
+    };
   };
 
   return (
-    <div className="min-h-screen bg-base-200">
+    <>
       {/* Backdrop Image */}
       <div className="relative w-full h-[400px]">
         <img
@@ -71,15 +83,21 @@ const Details = () => {
 
             {/* Trailer Modal */}
             {showTrailer && trailerKey && (
-              <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                <div className="relative">
+              <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+                <div className="relative w-full max-w-[640px]">
                   <button
                     onClick={() => setShowTrailer(false)}
-                    className="absolute -top-10 right-0 text-white hover:text-gray-300"
+                    className="absolute -top-10 right-0 text-white hover:text-gray-300 p-2 text-xl"
                   >
-                    Fechar
+                    ✕
                   </button>
-                  <YouTube videoId={trailerKey} opts={opts} />
+                  <div className="relative w-full">
+                    <YouTube 
+                      videoId={trailerKey} 
+                      opts={getYoutubeOpts()} 
+                      className="w-full"
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -87,18 +105,18 @@ const Details = () => {
             <p className="text-lg mb-4">{movie.overview}</p>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-gray-400">Data de Lançamento:</p>
+                <p className="text-gray-400">Release Date:</p>
                 <p>{new Date(movie.release_date).toLocaleDateString()}</p>
               </div>
               <div>
-                <p className="text-gray-400">Avaliação:</p>
+                <p className="text-gray-400">Rating:</p>
                 <p>{movie.vote_average.toFixed(1)} / 10</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

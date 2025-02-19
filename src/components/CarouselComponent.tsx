@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
@@ -11,20 +10,16 @@ const CarouselComponent = () => {
   };
 
   return (
-    <div className="w-[428px] h-auto">
-      <Carousel pause="hover" controls={true} indicators={true}>
+    <div className="flex justify-center">
+      <Carousel pause="hover" controls={false} indicators={false}>
         {trendingMovies.map((movie: ITrendingMovies) => (
-          <Carousel.Item key={movie.id} interval={5000} className="">
+          <Carousel.Item key={movie.id} interval={5000} className="flex-row">
             <Link to={`/details/${movie.id}`}>
               <img
-                className="w-[428px] h-auto"
+                className="d-block w-80 h-auto"
                 src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
                 alt={movie.title}
               />
-              {/* <Carousel.Caption>
-              <h3>{movie.title}</h3>
-              <p>{movie.overview}</p>
-            </Carousel.Caption> */}
             </Link>
           </Carousel.Item>
         ))}
