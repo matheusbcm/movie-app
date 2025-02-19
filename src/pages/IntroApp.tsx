@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Carousel from "../components/Carousel";
 import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
+import { Link } from "react-router-dom";
 
 const IntroApp = () => {
 
@@ -19,7 +20,9 @@ const IntroApp = () => {
               alt={movie.title}
             />
             <p>{movie.overview}</p>
-            <p>{movie.title}</p>
+            <Link to={`/details/${movie.id}`}>
+              <p>{movie.title}</p>
+            </Link>
           </div>
         ))}
       </div>

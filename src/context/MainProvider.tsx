@@ -8,8 +8,8 @@ interface MainContextType {
 
 export const mainContext = createContext<MainContextType>({ trendingMovies: [] })
 
-const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
-const BASE_TMDB_URL = `https://api.themoviedb.org/3/`;
+export const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
+export const BASE_TMDB_URL = `https://api.themoviedb.org/3/`;
 
 export default function MainProvider({children}: {children: React.ReactNode}) {
 
