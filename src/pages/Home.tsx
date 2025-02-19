@@ -1,20 +1,21 @@
 import { useContext } from "react";
-import Carousel from "../components/Carousel";
+import CarouselComponent from "../components/CarouselComponent";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
 import { mainContext } from "../context/MainProvider";
 
 const Home = () => {
-
-  const { trendingMovies } = useContext(mainContext) as {trendingMovies: ITrendingMovies[]}
+  const { trendingMovies } = useContext(mainContext) as {
+    trendingMovies: ITrendingMovies[];
+  };
 
   if (!trendingMovies || trendingMovies.length === 0) {
-    return <div>Carregando filmes...</div>
+    return <div>Carregando filmes...</div>;
   }
 
   return (
     <>
       <h1>Home</h1>
-      <Carousel />
+      <CarouselComponent />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {trendingMovies.map((movie: ITrendingMovies) => (
           <div key={movie.id} className="card bg-base-100 shadow-xl">
