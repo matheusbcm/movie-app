@@ -5,7 +5,7 @@ import WelcomeMessage from "../components/WelcomeMessage";
 const IntroApp = () => {
   return (
     <>
-      <div className="min-h-screen bg-gray-900 flex flex-col  items-center p-1">
+      <div className="min-h-screen bg-neutral-900 flex flex-col  items-center">
         {/* <h1>IntroApp</h1> */}
         <CarouselComponent />
         <WelcomeMessage />

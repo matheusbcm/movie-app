@@ -2,7 +2,7 @@ import React from "react";
 
 const WelcomeMessage = () => {
   return (
-    <div className="bg-black text-white py-12 px-6 text-center rounded- mt-10 rounded-md">
+    <div className="bg-neutral-700 text-white py-12 px-6 text-center rounded- mt-10 rounded-md">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
         Welcome to <span className="text-red-600">MovieSpin</span>
       </h1>
