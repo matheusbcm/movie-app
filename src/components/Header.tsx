@@ -13,7 +13,7 @@ const Header = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 backdrop-blur-md bg-base-100">
+        <header className="sticky top-0 z-50 backdrop-blur-md bg-neutral-700">
             <div className="navbar container mx-auto px-4 justify-end">
                 <div className="relative flex items-center">
                     <input
