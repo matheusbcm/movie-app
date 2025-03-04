@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { mainContext } from "../context/MainProvider";
 import { ITrendingMovies } from "../interfaces/ITrendingMovies";
 import { useContext } from "react";
@@ -13,10 +13,16 @@ const CarouselComponent = () => {
 
   // Função para avançar para o próximo slide
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === trendingMovies.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentIndex((prevIndex) => {
+      // Verifica se chegou ao final das imagens
+      if (prevIndex >= trendingMovies.length - 6) {
+        return 0; // Reinicia o carrossel
+      }
+      return prevIndex + 1; // Avança para o próximo slide
+    });
   };
+
+  console.log(currentIndex);
 
   // Efeito para alternar os slides automaticamente
   useEffect(() => {
@@ -30,7 +36,7 @@ const CarouselComponent = () => {
   const imageWidth = imageHeight * imageRatio; // Largura calculada com base na proporção
 
   return (
-    <div className="carousel w-full relative overflow-hidden bg-black">
+    <div className="carousel max-w-[1280px] relative overflow-hidden bg-black">
       {/* Telas pequenas (sm) */}
       <div className="block md:hidden">
         <div
@@ -49,9 +55,13 @@ const CarouselComponent = () => {
                 />
               </Link>
               {/* Título e Avaliação */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black bg-opacity-50">
-                <h4 className="text-xl font-bold text-white">{movie.title}</h4>
-                <p className="text-white text-sm">⭐ {movie.vote_average}/10</p>
+              <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-black bg-opacity-50 ">
+                <h4 className="text-lg leading-none font-medium text-white ">
+                  {movie.title}
+                </h4>
+                <p className="text-white text-sm ">
+                  ⭐ {movie.vote_average.toFixed(1)}/10
+                </p>
               </div>
             </div>
           ))}
@@ -70,7 +80,7 @@ const CarouselComponent = () => {
             <div
               key={movie.id}
               className="flex-none"
-              style={{ width: `${imageWidth}px`, marginRight: "2px" }} // Largura fixa e espaçamento
+              style={{ width: `${imageWidth}px`, marginRight: "px" }} // Largura fixa e espaçamento
             >
               <Link to={`/details/${movie.id}`}>
                 <img
@@ -89,7 +99,7 @@ const CarouselComponent = () => {
       </div>
 
       {/* Telas grandes (lg) */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block px-2">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{
@@ -100,7 +110,7 @@ const CarouselComponent = () => {
             <div
               key={movie.id}
               className="flex-none"
-              style={{ width: `${imageWidth}px`, marginRight: "16px" }} // Largura fixa e espaçamento
+              style={{ width: `${imageWidth}px`, marginRight: "10px" }} // Largura fixa e espaçamento
             >
               <Link to={`/details/${movie.id}`}>
                 <img
@@ -115,6 +125,62 @@ const CarouselComponent = () => {
               </Link>
             </div>
           ))}
+        </div>
+        {/* Left Button */}
+        <div className="absolute left-2 top-1/2 -translate-y-1/2 transform">
+          <button
+            onClick={() => {
+              if (currentIndex > 0) {
+                setCurrentIndex((prev) => prev - 1);
+              }
+            }}
+            className="p-3 bg-black bg-opacity-50 text-white rounded-lg hover:bg-opacity-75 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={currentIndex === 0} // Desabilita o botão se estiver na primeira imagem
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h- w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Right Button */}
+        <div className="absolute right-2 top-1/2 -translate-y-1/2 transform">
+          <button
+            onClick={() => {
+              if (currentIndex >= trendingMovies.length - 6) {
+                setCurrentIndex(0); // Reinicia o carrossel
+              } else {
+                setCurrentIndex((prev) => prev + 1); // Avança para o próximo slide
+              }
+            }}
+            className="p-3 bg-black bg-opacity-50 text-white rounded-lg hover:bg-opacity-75 transition duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
